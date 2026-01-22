@@ -66,3 +66,21 @@ Find solutions to common problems below
       [local]$ scp username@student-login.tacc.utexas.edu:~/output.png ./
       Password:
       TACC_Token:
+
+
+
+.. dropdown:: ERROR: Corrupted MAC on input.
+
+   If logging in from a windows machine and you encounter the 'Corrupted MAC on
+   input.' error, then add the following line to your local laptop ssh config:
+
+   .. code-block:: text
+      :emphasize-lines: 6
+
+      Host student-login-jump
+          HostName student-login.tacc.utexas.edu
+          User your_tacc_username
+          IdentityFile ~/.ssh/id_ed25519
+          ForwardAgent yes
+          MACs hmac-sha2-512
+

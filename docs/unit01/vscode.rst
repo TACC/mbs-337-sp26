@@ -297,10 +297,23 @@ Notes:
 
     If you get a "connection timeout" error, you may need to increase the Remote SSH connection
     timeout in your VSCode settings. To do that, do the following:
+
     1. Open the Command Palette in VS Code (``Ctrl+Shift+P`` or ``Cmd+Shift+P`` on Mac).
     2. Type and select "Preferences: Open Settings UI".
     3. Search for "Remote.SSH: Connect Timeout".
     4. Change the value from the default 15 to 30 (or higher, like 60).
+
+
+.. note::
+
+    If you have trouble entering the password or MFA token in VS code, you may need to configure a
+    setting to always show the login prompt. To do that, do the following:
+
+    1. Open the Command Palette in VS Code (``Ctrl+Shift+P`` or ``Cmd+Shift+P`` on Mac).
+    2. Type and select "Preferences: Open Settings UI".
+    3. Search for "Remote.SSH: Show Login Terminal".
+    4. Check the box to "Always reveal the SSH login terminal."
+
 
 Choose the ``File -> Open Folder...`` menu option or click the ``Open Folder`` button in the Explorer and select the ``/home/ubuntu`` directory to see the
 complete listing.

@@ -239,6 +239,7 @@ For more details and alternatives, see the documentation for Remote SSH [1].
             User your_tacc_username
             IdentityFile ~/.ssh/id_ed25519
             ForwardAgent yes
+            MACs hmac-sha2-512
 
         Host mbs-337
             HostName 129.114.xx.yy

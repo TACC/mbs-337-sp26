@@ -1,5 +1,5 @@
 Working with Sequence Data (FASTQ)
-====================================
+==================================
 
 In this hands-on module, we will learn how to work with the FASTQ data format.
 FASTQ extends FASTA by storing quality scores alongside sequence data from
@@ -139,7 +139,7 @@ since this line contains the ASCII-encoded quality scores, and ``@`` is a valid 
 We need a method that understands the *structure* of the file, not just the characters in it. 
 
 Introducing ``awk``
-++++++++++++++++++
++++++++++++++++++++
 
 ``awk`` is a powerful text-processing command that works on **one line at a time**. 
 Unlike ``grep``, which simply searches for matching text, ``awk`` allows us to perform actions
@@ -329,6 +329,7 @@ model) whose **reads** field will hold the list of read summaries:
 
 Now, let's create an empty list to store our **ReadSummary instances** for each read. 
 We'll use ``SeqIO.parse`` to extract the following from our FASTQ file:
+
  * The sequence identifier
  * The sequence itself
  * The length of the sequence
@@ -419,8 +420,10 @@ successfully saved your raw sequencing quality metrics to a new JSON file.
 In this exercise, we:
 
 1. Defined two Pydantic models:
+
  * **ReadSummary** (one per read)
  * **FastqSummary** (the top-level model with a ``reads`` field).
+
 2.  Built a list of **ReadSummary** instances (``reads_list``)
 3.  Created a **FastqSummary** instance with that list (``data = FastqSummary(reads=reads_list)``)
 4. Used ``data.model_dump()`` to convert that instance to a plain Python dictionary and ``json.dump()`` to write the JSON file. 

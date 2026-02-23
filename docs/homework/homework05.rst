@@ -1,5 +1,5 @@
 Homework 05
-==========
+===========
 
 **Due Date: Tuesday, February 17 by 11:00am CST**
 

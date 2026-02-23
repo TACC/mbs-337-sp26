@@ -266,7 +266,7 @@ A table explaining these attributes and more can be found
 
 
 Exercise: Add logging to the FASTQ summary script
-------------------------------------------------
+-------------------------------------------------
 
 Let's add logging to our FASTQ summary script.
 Here's a few things we could add:

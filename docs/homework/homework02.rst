@@ -62,5 +62,5 @@ README must also contain a section that summarizes where AI was used in the assi
 Additional Resources
 --------------------
 
-* `Python Refresher guide <https://mbs-337-sp26.readthedocs.io/en/latest/unit01/python_refresher.html>`_
+* `Python Refresher guide <https://mbs-337-sp26.readthedocs.io/en/latest/unit01/python_refresher.html>`__
 * Please find us in the class Slack channel if you have any questions!

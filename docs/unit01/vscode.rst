@@ -107,8 +107,8 @@ Installing VSCode on Your Laptop
 Here are the instructions for installing VSCode on your computer, based on your operating system:
 
  * Linux -- Follow the instructions `here. <https://code.visualstudio.com/docs/setup/linux>`_
- * Mac -- Follow the instructions `here. <https://code.visualstudio.com/docs/setup/mac>`_
- * Windows -- Follow the instructions `here. <https://code.visualstudio.com/docs/setup/windows>`_
+ * Mac -- Follow the instructions `here. <https://code.visualstudio.com/docs/setup/mac>`__
+ * Windows -- Follow the instructions `here. <https://code.visualstudio.com/docs/setup/windows>`__
 
 **You only need to follow the first step to install the actual VSCode application**. Next, we're going to install the following additional plugins. 
 

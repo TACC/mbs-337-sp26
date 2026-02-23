@@ -4,7 +4,7 @@ Homework 04
 **Due Date: Tuesday, February 10 by 11:00am CST**
 
 From Sequence to Structure
-------------------------
+--------------------------
 
 This homework builds on Unit 3 (FASTA, FASTQ, and mmCIF). You will use the same tools
 (Biopython ``SimpleFastaParser``, ``SeqIO``, ``MMCIFParser``) but to solve new problems:
@@ -35,7 +35,7 @@ mmCIF multi-chain analysis and coordinate extraction.
    gunzip 4HHB.cif.gz
 
 Exercise 1: Count residues in FASTA file
------------------------------------------
+----------------------------------------
 
 Create a Python script called ``exercise1.py`` that reads ``immune_proteins.fasta``
 and prints:
@@ -61,7 +61,7 @@ Example output:
 * Match the example output format exactly.
 
 Exercise 2: Write New FASTA File
------------------------------------------
+--------------------------------
 
 Create a Python script called ``exercise2.py`` that reads ``immune_proteins.fasta`` 
 using ``SimpleFastaParser`` again. This time, your script should **write out** a new 
@@ -98,7 +98,7 @@ Example output:
 * Match the example output format exactly.
 
 Exercise 4: mmCIF multi-chain summary (4HHB)
----------------------------------------------
+--------------------------------------------
 
 Create a Python script called ``exercise3.py`` that:
 

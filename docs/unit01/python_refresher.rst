@@ -826,7 +826,7 @@ Before running this, let's break down what's happening:
    ATGCGATCGATCG
    AUGCGAUCGAUCG
 
-You can read more about BioPython `here <https://biopython.org/wiki/Documentation>`_ and about the Seq class `here <https://biopython.org/wiki/Seq>`_.
+You can read more about BioPython `here <https://biopython.org/wiki/Documentation>`_ and about the Seq class `here <https://biopython.org/wiki/Seq>`__.
 
 
 Exercises

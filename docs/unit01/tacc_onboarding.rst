@@ -131,7 +131,7 @@ All of a sudden, the tools required to do biology changed almost overnight. Biol
 In short, **biology became a computational science**, and the next era of biological discovery will come from researchers who can move fluently between data analysis, computer science, and biological insight. 
 
 Where This Course Fits In
-------------------------
+-------------------------
 
 This is one of the most exciting moments in the history of biology. Just a few years ago in 2020, the `protein folding problem` — a grand challenge that had stumped scientists for over 50 years — was finally solved by **AlphaFold2**, a revolutionary AI system that can predict protein structures with near-experimental accuracy. 
 

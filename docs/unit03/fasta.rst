@@ -325,7 +325,7 @@ Let's say we are only interested in continuing our analysis on a particular set 
 within this FASTA file. We have a CSV file that contains a list of accessions, and we want to
 create a new FASTA file containing **only the matching sequences (and their headers)**.
 
-For this activity, you'll need to copy/paste the contents of `this file <https://raw.githubusercontent.com/kbeavers/mbs-337-sp26/refs/heads/main/docs/unit03/sample-data/accessions.csv>`_
+For this activity, you'll need to copy/paste the contents of `this file <https://raw.githubusercontent.com/kbeavers/mbs-337-sp26/refs/heads/main/docs/unit03/sample-data/accessions.csv>`__
 into a new file called ``accessions.csv``. Notice that this CSV has a header row called 'accession'.
 
 Read in the CSV

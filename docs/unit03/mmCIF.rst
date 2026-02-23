@@ -1,5 +1,5 @@
 Working with Structure Data (PDBx/mmCIF)
-====================================
+========================================
 
 In this hands-on module, we will learn how to work with the mmCIF data format.
 mmCIF is the modern, machine-friendly format used by the `RCSB Protein Data Bank (PDB) <https://www.rcsb.org/>`_
@@ -18,7 +18,7 @@ After completing this module, students should be able to:
 * Write or export structures back to mmCIF format
 
 Macromolecular structure context 
---------------------------
+--------------------------------
 
 mmCIF files describe **macromolecular structures**, meaning the three-dimensional
 positions of atoms in a biological system. While many entries in the Protein Data Bank
@@ -50,7 +50,7 @@ and compared.
     in 1962 for this achievement.*
 
 What is mmCIF?
--------------------
+--------------
 
 **PDBx/mmCIF**, or simply **mmCIF**, stands for "Macromolecular CIF". This name is derived from 
 the "Crystallographic Information File (CIF)" format, which was created to store small molecule 
@@ -183,6 +183,7 @@ most crucial information contained in a mmCIF file:
 
 The first line (``loop_``) starts the table. Then, the lines starting with ``_atom_site.`` define the 
 **columns** of the table:
+
  * ``label_atom_id``: The atom name within the residue (e.g., N, C, O)
  * ``label_comp_id``: The residue name (here, VAL = valine)
  * ``Cartn_x``, ``Cartn_y``, ``Cartn_z``: The atom's x, y, and z coordinates in 3D space (in Ångströms)
@@ -464,7 +465,7 @@ This code returned the residue name of the first residue in our chain (VAL), alo
 each atom (N, CA, C, etc.) and its 3D coordinates. 
 
 Summary of Structure Methods
----------------------------
+----------------------------
 
 The table below summarizes the most commonly used
 methods at each level and what they return.
@@ -556,7 +557,7 @@ Example output: ``Chain A: 155 residues``.
                 print(f"Chain {chain_id}: {num_residues} residues")
 
 Exercise 2: List All Hetero-residues in a Chain
-++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++
 
 For this exercise, we want to find all the hetero-residues in Chain A
 and print their residue name and ID.  

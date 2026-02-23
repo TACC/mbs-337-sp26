@@ -205,7 +205,7 @@ entire ``data`` dictionary:
 
 .. code-block:: python3
    :linenos:
-   :emphasize-lines: 10-11,14
+   :emphasize-lines: 9-10,13
 
    import xmltodict
 

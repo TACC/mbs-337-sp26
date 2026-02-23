@@ -292,6 +292,7 @@ Let's break down what this code does:
 1. In the first line, we import the ``BaseModel`` class from the ``pydantic`` library. 
 2. In line 3, we define a new Python class called ``ProteinEntry`` to model our protein data. 
 3. In lines 4-8, we define a template for our model:
+
  * Each line inside the class defines a field (property) of our model
  * Format: ``field_name: type``
  * The indentation shows these fields belong to the ``ProteinEntry`` class

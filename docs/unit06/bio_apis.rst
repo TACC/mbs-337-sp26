@@ -313,7 +313,7 @@ information about specific proteins, their structures, and related data.
     RCSB PDB main page.
 
 The RCSB PDB has multiple APIs available, including a Search API for querying the database and a Data API for
-retrieving detailed information about specific entries. Let's first take a look at the `RCSB PDB Search API documentation <https://search.rcsb.org/index.html#search-api>`_.
+retrieving detailed information about specific entries. Let's first take a look at the `RCSB PDB Search API documentation <https://search.rcsb.org/index.html#search-api>`__.
 
 .. figure:: images/rcsb-pdb-search-api.png
     :width: 600px
@@ -458,7 +458,7 @@ For example, let's search for entries that contain the term "Hemoglobin". We can
 Now that we have a list of entry IDs that match our search query, we can use the Data API to retrieve detailed
 information about a specific entry. For example, let's retrieve information about the entry with ID "4HHB", which
 is the PDB ID for human hemoglobin. As we did with the Search API, let's first take a look at the
-`RCSB PDB Data API documentation <https://data.rcsb.org/index.html#data-api>`_.
+`RCSB PDB Data API documentation <https://data.rcsb.org/index.html#data-api>`__.
 
 .. figure:: images/rcsb-pdb-data-api.png
     :width: 600px
@@ -507,7 +507,7 @@ Downloading PDB files using BioPython
 
 In previous sections, we have used BioPython's PDB package to parse PDB files. Now let's see
 how we can use BioPython to download PDB files directly from the RCSB PDB database. This can be done using
-the ``PDBList`` class from the ``Bio.PDB`` module (see `docs <https://biopython.org/docs/1.76/api/Bio.PDB.PDBList.html>`_).
+the ``PDBList`` class from the ``Bio.PDB`` module (see `docs <https://biopython.org/docs/1.76/api/Bio.PDB.PDBList.html>`__).
 
 .. code-block:: console
 
@@ -556,7 +556,7 @@ programmatically, enabling researchers to retrieve information about specific ge
 biological entities.
 
 Again, we can turn to the BioPython library to interact with the NCBI APIs in a more convenient way.
-BioPython provides the ``Entrez`` module for accessing the NCBI APIs (see `docs <https://biopython.org/docs/1.76/api/Bio.Entrez.html>`_).
+BioPython provides the ``Entrez`` module for accessing the NCBI APIs (see `docs <https://biopython.org/docs/1.76/api/Bio.Entrez.html>`__).
 
 Searching, downloading, and parsing GenBank records
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -657,7 +657,7 @@ Additional Resources
 * `iNaturalist API documentation <https://api.inaturalist.org/v1/docs/>`_
 * `pyinaturalist API documentation <https://pyinaturalist.readthedocs.io/en/stable/reference.html>`_
 * `PDB-101: Introduction to RCSB PDB APIs <https://pdb101.rcsb.org/learn/guide-to-understanding-pdb-data/introduction-to-rcsb-pdb-apis>`_
-* `RCSB PDB Search API documentation <https://search.rcsb.org/index.html>`_
+* `RCSB PDB Search API documentation <https://search.rcsb.org/index.html>`__
 * `RCSB PDB Data API documentation <https://data.rcsb.org/index.html>`_
 * `rcsb-api documentation <https://rcsbapi.readthedocs.io/en/latest/>`_
 * `NCBI APIs documentation <https://www.ncbi.nlm.nih.gov/home/develop/api/>`_

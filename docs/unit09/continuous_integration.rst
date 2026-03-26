@@ -311,7 +311,7 @@ to perform our integration testing with the following contents:
    
        steps:
        - name: Check out repo
-         uses: actions/checkout@v3
+         uses: actions/checkout@v4
    
        - name: Start containers
          run: docker compose up --build -d

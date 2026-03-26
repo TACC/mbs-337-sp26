@@ -44,7 +44,6 @@ Consider the following workflow, which may be written to ``.github/workflows/pus
    
    jobs:
      push-to-registry:
-       name: Push container image to GHCR
        runs-on: ubuntu-latest
        permissions:
          contents: read
@@ -81,19 +80,21 @@ Consider the following workflow, which may be written to ``.github/workflows/pus
 
       
 
-This workflow is triggered when a new tag is pushed (``tag: - '*'``). This is more desireable than 
-building a container on every push, because we would prefer if tagged containers can be traced back
-to specific tagged versions of code.
+This workflow is triggered when a new tag is pushed (``tags: - '*'``). In contrast to testing on
+every push, it makes sense to build and tag containers more selectively, because we would prefer if
+tagged containers can be traced back to specific tagged versions of code.
 
 This workflow sets a few permissions near the beginning which are required for building an image. 
-As in the previous workflow, this one also to an ``ubuntu-latest`` environment.
+As in the previous workflow, this one also runs on an ``ubuntu-latest`` environment.
 
-Then, it uses the ``docker/login-action`` to log in to GitHub Container Registry (GHCR) Hub on the
-command line. The username and password are taken out of the environment. Certain variables, including
-``secrets.GITHUB_TOKEN`` are automatically part of the environment for every GitHub Action Workflow.
+Then, among the fours steps, it uses the ``docker/login-action`` to log in to GitHub Container
+Registry (GHCR) Hub on the command line. The username and password are taken out of the environment.
+Certain variables, including ``secrets.GITHUB_TOKEN`` are automatically part of the environment for
+every GitHub Action Workflow.
 
-Finally, the workflow extracts tags and the repository name to assign to the name of the container 
-image, and it builds and pushes to the GHCR.
+Finally, the workflow uses the ``docker/metadata-action`` to extract tags and the repository name to
+assign to the name of the container image, and uses ``docker/build-push-action`` to build and push
+the container to the GHCR.
 
 
 .. tip::
@@ -112,16 +113,16 @@ new tag is appropriate) to trigger another automated build:
 .. code-block:: console
 
    [coe332-vm]$ git add *
-   [coe332-vm]$ git commit -m "added a new route to do something"
+   [coe332-vm]$ git commit -m "added a new feature to do something"
    [coe332-vm]$ git push
    [coe332-vm]$ git tag -a 0.1.1 -m "release version 0.1.1"
    [coe332-vm]$ git push origin 0.1.1
 
 By default, the git push command does not transfer tags, so we are explicitly
-telling git to push the tag we created (0.1.1) to the remote (origin).
+telling git to push the tag we created (0.1.1) to GitHub (origin).
 
-Now, check the online GitHub repo to make sure your change / tag is there, and
-check the Docker Hub repo to see if your new tag has been pushed.
+Now, check the online GitHub repo to make sure your change / tag is there, and check the Actions
+tab to monitor the status of your build.
 
 .. figure:: images/ghcr_result.png
    :width: 600
@@ -129,16 +130,21 @@ check the Docker Hub repo to see if your new tag has been pushed.
 
    New tag automatically pushed.
 
+If successful, the resulting container images can be found by navigating to your GitHub Profile and
+clicking the **Packages** tab near the top center. That image can be pulled using the Docker
+commandline interface:
 
-The resulting container images can be found by navigating to your GitHub Profile and clicking the
-**Packages** tab near the top center. That image can be pulled using the Dckker command line interface:
 
 .. code:: console
 
-   [mbs337-vm]$ docker pull ghcr.io/wjallen/dash-test:1.1.0
+   [mbs337-vm]$ docker pull ghcr.io/USERNAME/IMAGE:TAG
+   # e.g.:
+   [mbs337-vm]$ docker pull ghcr.io/wjallen/dash-test:0.1.0
 
 With container images stored in a web-accessible container registry, you can now deploy code and
-projects independent of the codebase itself.
+projects independent of the codebase itself. This is great for arbitrary cloud deployments orchestrated
+with tools like Kubernetes or Ansible.
+
 
 Additional Resources
 --------------------

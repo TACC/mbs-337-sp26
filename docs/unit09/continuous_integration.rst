@@ -363,7 +363,7 @@ and push to GitHub.
 .. code-block:: console
 
    [mbs337-vm]$ git add *
-   [mbs337-vm]$ git commit -m "added a new route to do something"
+   [mbs337-vm]$ git commit -m "added a new feature to do something"
    [mbs337-vm]$ git push
 
 Then navigate to the repo on GitHub and click the 'Actions' tab to watch the

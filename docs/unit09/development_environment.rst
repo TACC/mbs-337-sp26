@@ -222,6 +222,8 @@ container, and a target for stopping all containers:
    stop:
            docker stop $(shell docker ps -q)
 
+   all: stop build run
+
 
 Note the syntax of the ``run`` target - it has a prerequisite of ``build``, which means that the build
 target will be run first before the run target is executed. This ensures that we are always running

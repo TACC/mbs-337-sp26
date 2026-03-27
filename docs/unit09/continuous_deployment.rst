@@ -146,8 +146,134 @@ projects independent of the codebase itself. This is great for arbitrary cloud d
 with tools like Kubernetes or Ansible.
 
 
+Ansible
+-------
+
+Ansible is a great tool for automating complex or repetetive tasks anywhere - even on remote virtual
+machines. For example, imagine you have a web dashboard consisting of multiple containerized
+components. Docker compose is great for orchestrating the containers - but there are many other
+considerations when working
+in a brand new virtual machine. How will you make sure Docker is even installed? And the necessary 
+containers or source code are available to the machine? And the ports are correctly proxied so that
+the dashboard is visible to the outside world? And all of the other latest versions of packages
+and security updates are installed so your virtual machine is secure?
+
+Ansible enables us to write a "playbook" for launching our web apps from start to finish. It runs
+consistently everywhere, can very easily be set up to support staging and production environments,
+and it is self-documenting, much like a Dockerfile.
+
+
+Install Ansible
+~~~~~~~~~~~~~~~
+
+Simply:
+
+.. code-block:: console
+
+   [mbs337-vm]$ pip3 install ansible
+
+Consider that ansible is *agentless*, meaning it can communicate and perform actions on remote 
+virtual machines without having to install any applications or services. So in practice, you may find
+that you ultimately install ansible on your own laptop, and manage your virtualized dashboards on
+remote VMs from there.
+
+.. code-block:: console
+
+   [local]$ pip3 install ansible
+
+The next steps will assume you are running ansible from your local laptop, and your class virtual
+machine is the remote host (you need to know the IP).
+
+Create an Inventory
+~~~~~~~~~~~~~~~~~~~
+
+The inventory is a list of hosts - typically IP addresses - for virtual machines that you have 
+provisioned and you have access to. You should have prepared:
+
+1. The IP address of the host
+2. The username you use to log in to the host
+3. SSH key authentication for logging in to the host
+
+
+Write the inventory into a ``inventory.ini`` file:
+
+.. code-block:: text
+
+   [myhosts]
+   129.114.123.456
+
+
+Then try using the ansible CLI to ping the hosts in your inventory:
+
+.. code-block:: console
+
+   [local]$ ansible -m ping -i inventory.ini -u ubuntu --key-file ~/.ssh/id_ed25519 myhosts
+   129.114.123.456 | SUCCESS => {
+       "ansible_facts": {
+           "discovered_interpreter_python": "/usr/bin/python3.12"
+       },
+       "changed": false,
+       "ping": "pong"
+   }
+
+The command line options are:
+
+* ``ansible -m ping``: run the ansible ping module
+* ``-i inventory.ini``: a pointer to your local inventory file
+* ``-u ubuntu``: the username you use to log in to your host
+* ``--key-file ~/.ssh/id_ed25519``: the private key you use to log in to your host
+* ``myhosts``: the group name from your inventory file
+
+A SUCCESS message above means ansible is able to reach your host and will be able to manage it.
+
+Write a Playbook
+~~~~~~~~~~~~~~~~
+
+A very simple first playbook from the
+`ansible documentation <https://docs.ansible.com/projects/ansible/latest/getting_started/get_started_playbook.html>`_
+is as follows:
+
+.. code-block:: yaml
+
+    - name: My first play
+    hosts: myhosts
+    tasks:
+     - name: Ping my hosts
+       ansible.builtin.ping:
+    
+     - name: Print message
+       ansible.builtin.debug:
+         msg: Hello world
+
+Save the above into a file called "playbook.yaml". It performs two steps on your hosts labeled
+"myhosts" in your inventory. Step one is a ping (as we saw previously), and step two is to echo 
+a message to standard out - "Hello world". Ansible uses builtin macros for almost every function
+or command one could imagine - from making a folder to cloning a git repo to starting containers and
+anything in between. The Ansible documentation has an extensive library of macros.
+
+To run the playbook, execute:
+
+.. code-block:: console
+
+   [localhost]$ ansible-playbook -i inventory.ini -u ubuntu --key-file ~/.ssh/id_ed25519 playbook.yaml
+
+Another key concept of ansible is *idempotence*. In computer science, this is the property whereby
+an action can be applied multiple times (e.g. an ansible playbook), but it won't have any additional
+effect on the system beyond the first time. In other words, you can play a playbook with ansible
+to start your containers the first time. If you call the exact same playbook again, it will see that
+the containers are already started and will make no change. In this way, ansible can be used not only
+to manage your services, but to verify that they are working as expected.
+
+Next Steps
+~~~~~~~~~~
+
+1. Update the playbook to clone your Git repository and use docker compose to start your dashboard
+   container(s)
+2. Modify the scheme to support staging and production environments
+
+
 Additional Resources
 --------------------
 
 * `GitHub Actions Docs <https://docs.github.com/en/actions>`_
-* `Demo Repository <https://github.com/wjallen/api-demo>`_
+* `Ansible Docs <https://docs.ansible.com/projects/ansible/latest/index.html>`_

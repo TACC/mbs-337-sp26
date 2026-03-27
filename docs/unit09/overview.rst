@@ -18,5 +18,4 @@ on projects, including collaboratively, quickly and efficiently.
    development_environment
    continuous_integration
    continuous_deployment
-   ansible
 

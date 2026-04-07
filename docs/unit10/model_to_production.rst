@@ -9,14 +9,14 @@ we put that model into a production environment for others to use with their own
 After going through this section, you should be able to:
 
 * Describe the general process of MLOps from training to inference in production
-* Export models to binary Python objects using ``pickle`` or Tensorflow's ``model.save``
+* Export models to binary Python objects using ``pickle`` or Tensorflow's ``model.save()``
 * Import previously-exported models into new Python scripts
 
 
 Model Persistence
 -----------------
 
-Recall that, at a high level, the use of ML invovles the following process:
+Recall that, at a high level, the use of ML involves the following process:
 
 1. Find or collect raw data about the process or function
 2. Prepare the data for model training or fitting
@@ -271,7 +271,7 @@ on both the test and validation sets, and the validation accuracy has started to
 this seems like a good time to save the model. 
 
 We use the ``model.save()`` function, passing in a file name to use to save the model. I will use 
-the simple name ``clothes.keras``. It is a good habbit to save the models with a ``.keras`` extension. 
+the simple name ``mushroom_classifier.keras``. It is a good habbit to save the models with a ``.keras`` extension. 
 
 .. code-block:: python3 
 

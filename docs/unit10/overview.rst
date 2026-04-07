@@ -24,7 +24,8 @@ to share the models we have trained with others.
    supervised_classification
    intro_to_dl
    build_your_own_nn
-
+   model_to_production
+   data_standardization_and_pipelines
 
 
 

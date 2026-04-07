@@ -148,7 +148,7 @@ to test:
 .. note:: 
 
     Note that in general, Python callables (e.g., functions) *cannot* be pickled. If you need to serialize 
-    a callable, consider using the third-party ``cloudpickle`` package instead, available from pypi [1].
+    a callable, consider using the third-party ``cloudpickle`` package instead, available from pypi.
 
 
 
@@ -175,8 +175,8 @@ cloud.
     computer. 
 
 
-Serializing and Deserializeing Tensorflow Models
-------------------------------------------------
+Serializing and Deserializing Tensorflow Models
+-----------------------------------------------
 
 The Python ``pickle`` module is great for serializing a sklearn model. However, for serializing a 
 Tensorflow model we recommend using the built in ``model.save()`` method. In general, attempting to
@@ -365,31 +365,33 @@ sample with features:
 
 .. code-block:: text
 
-    cap-shape                   x
-    cap-surface                 s
-    cap-color                   n
-    bruises                     t
-    odor                        p
-    gill-attachment             f
-    gill-spacing                c
-    gill-size                   n
-    gill-color                  k
-    stalk-shape                 e
-    stalk-root                  e
-    stalk-surface-above-ring    s
-    stalk-surface-below-ring    s
-    stalk-color-above-ring      w
-    stalk-color-below-ring      w
-    veil-type                   p
-    veil-color                  w
-    ring-number                 o
-    ring-type                   p
-    spore-print-color           k
-    population                  s
-    habitat                     u
+    {
+      "cap-shape": "x",
+      "cap-surface": "s",
+      "cap-color": "n",
+      "bruises": "t",
+      "odor": "p",
+      "gill-attachment": "f",
+      "gill-spacing": "c",
+      "gill-size": "n",
+      "gill-color": "k",
+      "stalk-shape": "e",
+      "stalk-root": "e",
+      "stalk-surface-above-ring": "s",
+      "stalk-surface-below-ring": "s",
+      "stalk-color-above-ring": "w",
+      "stalk-color-below-ring": "w",
+      "veil-type": "p",
+      "veil-color": "w",
+      "ring-number": "o",
+      "ring-type": "p",
+      "spore-print-color": "k",
+      "population": "s",
+      "habitat": "u"
+    }
 
 
-What challenges exist in performing inference on one stand-alone data set? 
+What challenges exist in performing inference on one stand-alone sample? 
 
 
 Additional Resources

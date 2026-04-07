@@ -35,7 +35,7 @@ constants, :math:`min, max`. However, care is needed for the following reasons:
    with a small number of very significant outliers can be skewed with techniques that use averages 
    while the structure of sparse variables would typically be lost if one attempted to center it at, 
    say 0. More generally, the techniques we will look at in this module **apply to continuous 
-   variables**. Categorical variables are often treated with different methods, such as 1-hot 
+   variables**. Categorical variables are often treated with different methods, such as one-hot 
    encoding, which we have discussed previously. 
 2. The parameters of a pre-processing step should be computed on **only the training** data (i.e., 
    after performing the train-test split) so as to not "leak" information from the test set.
@@ -61,6 +61,7 @@ update:
   x \rightarrowtail (x - mean(X_i)) / std(X_i)
 
 where:
+
  * :math:`mean(X_i)` is the mean of the column, :math:`X_i`
  * :math:`std(X_i)` is the standard deviation of the column, :math:`X_i`
 
@@ -73,7 +74,7 @@ and no significant outliers.
 *When to Use*: When the dataset is normally distributed (or close to it). 
 
 StandardScaler in SciKit-Learn 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------
 
 The ``StandardScaler`` class from the ``sklearn.preprocessing`` module provides a convenience class
 that implements data standardization. The classes in ``preprocessing`` module that perform 
@@ -92,9 +93,10 @@ cause our model to be fit in part based on the test data.
     Using test data to fit the Scaler can lead to overly optimistic performance estimates. 
     A simple rule to remember is this: *Never call fit() on the test data.*
 
-Let's see an example using our iris data set:
+Let's see an example using our Iris data set:
 
 .. code-block:: python
+   :linenos:
 
    from sklearn import datasets
    import numpy as np
@@ -148,6 +150,11 @@ deviation. Next, transform the data using the standard Scaler:
    # print the column means and standard deviations after transformation
    print(f'scaled mean by column:   {np.mean(X_train_scaled, axis=0)}')
    print(f'scaled stddev by column: {np.std(X_train_scaled, axis=0)}')
+
+The output should now be similar to:
+
+.. code-block:: text
+
    scaled mean by column:   [-8.47998920e-16 -1.81442163e-15  2.11471052e-17 -5.96348368e-16]
    scaled stddev by column: [1. 1. 1. 1.]
 
@@ -189,14 +196,81 @@ Note also that this scaler does not reduce the effect of outliers.
 *When to Use*: When the dataset contains sparse data. 
 
 
-
-
 Pipelines 
 ---------
 
+We now have a dilemma - the training data was scaled using the ``StandardScaler`` but the test data
+was not. This will lead to poor performance when we attempt to predict on the test data. (But remember -
+this was by design! The test data should not be used to fit the Scaler).
+
+To avoid this issue, we can use a ``Pipeline`` to ensure that all preprocessing steps are applied
+consistently to both the training and test data. A pipeline bundles together a sequence of data
+processing steps, including scaling, and allows us to treat the entire sequence as a single object.
+
+We can create a pipeline for our Iris dataset by adding the following code:
+
+.. code-block:: python
+
+   from sklearn.pipeline import Pipeline
+   from sklearn.linear_model import SGDClassifier
+
+   # create a pipeline
+   iris_pipeline = Pipeline([
+       ('scaler', StandardScaler()),
+       ('classifier', SGDClassifier())
+   ])
+
+   # fit the pipeline to the training data
+   iris_pipeline.fit(X_train, y_train)
+
+   # make predictions on the test data
+   y_pred = iris_pipeline.predict(X_test)
+
+   # evaluate the model
+   from sklearn.metrics import accuracy_score
+   print(f'Accuracy: {accuracy_score(y_test, y_pred)}')
+
+The pipeline itself combines two steps: 1) scaling the data using the ``StandardScaler`` and 2) 
+fitting a linear classifier using stochastic gradient descent. When we call ``fit()`` on the 
+pipeline, it will first fit the scaler to the training data, then apply the transformation to the 
+training data, and finally fit the classifier to the scaled training data. When we call 
+``predict()`` on the pipeline, it will apply the same scaling transformation to the test data before 
+making predictions with the classifier. This ensures that the test data is preprocessed in the same 
+way as the training data, which can lead to better performance.
+
+Importantly, the pipeline itself can be pickled, just like other sklearn objects, which allows us
+to save the entire sequence of transformations and the model in one step. For example, consider the 
+following code blocks:
+
+
+.. code-block:: python
+
+    import pickle
+    
+    # save the pipeline to disk
+    with open('iris_pipeline.pkl', 'wb') as f:
+        pickle.dump(iris_pipeline, f)
+    
+    # load the pipeline from disk
+    with open('iris_pipeline.pkl', 'rb') as f:
+        loaded_pipeline = pickle.load(f)
 
 
 
+
+EXERCISE
+~~~~~~~~
+
+Let's go through the process of putting the above Iris classifier into production.
+
+1. Normalize the original data using a ``StandardScaler``
+2. Fit a linear classifier to the normalized data using stochastic gradient descent (SGD)
+3. Save the pipeline to disk using ``pickle``
+4. Load the pipeline from disk and use it to make predictions on non-normalized sample data,
+   e.g. ``[5.1, 3.5, 1.4, 0.2]``
+5. Write a production-ready script (following Python best practices) that takes command line 
+   arguments for the input data (sepal length, sepal width, petal length, petal width) and outputs
+   the predicted class
 
 
 Additional Resources

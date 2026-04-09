@@ -42,6 +42,7 @@ research problems.
    homework/midterm
    homework/homework08
    homework/homework09
+   homework/homework10
 
 
 .. toctree::

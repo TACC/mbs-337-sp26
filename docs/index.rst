@@ -43,6 +43,7 @@ research problems.
    homework/homework08
    homework/homework09
    homework/homework10
+   homework/final
 
 
 .. toctree::

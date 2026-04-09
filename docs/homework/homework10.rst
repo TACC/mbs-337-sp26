@@ -24,12 +24,13 @@ datasets, and fit a linear classifier. After validating the accuracy of the mode
 to file using the ``pickle`` module.
 
 Next, write the appropriate code to import the data, and create a pipeline which performs data
-standardization using the ``StandardScaler``, then classification with a linear classifier. Fit
+normalization using the ``StandardScaler``, then classification with a linear classifier. Fit
 the pipeline to your training data, and finally save that pipeline to a new file using
 the ``pickle`` module.
 
-The code above can all be in the same Python script, but the model and pipeline should be written
-to different, appropriately named files.
+The code above should all be in the same Python script, but the model and pipeline should be written
+to two different, appropriately named files. The Python script should be organized into functions,
+and should be written follow Python best practices.
 
 In the README.md, include a section that describes the process you went through to prepare data for
 and fit each of the the two models, and note the performance of each model on the test data.
@@ -40,21 +41,22 @@ Part 2: Deploy Two Models
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In a new Python script, use the ``pickle`` module to load the model and the pipeline you created in
-Part 1. Then, write code to take sample data from a user as, e.g., as csv file. The test data should
+Part 1. Then, write code to take sample data from a user as, e.g., a csv file. The test data should
 be in the same format as the original data available 
 `here <https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic>`_, but it may be
 as few as one sample.
 
 The objective is to be able to run just this new Python script, have it take sample data from the 
-user, then load in the model and pipeline, and make predictions on the sample data. For example,
-usage may look like:
+user, then load in the model and pipeline, and make two predictions on the sample data - one using
+the original model, and one using the pipeline which normalizes the data before classifying. For
+example, usage may look like:
 
 .. code-block:: console
 
     $ python inference.py --sample_data sample_data.csv
-    Given the sample data,
-    non-standardized model predicts: [malignant]
-    standardized pipeline predicts: [benign]
+    Your sample data contains 1 entry:
+    non-normalized model predicts: [malignant]
+    normalized model in pipeline predicts: [benign]
 
 (The above is a rough example, your output may look very different)
 
@@ -64,9 +66,9 @@ What to Turn In
 ---------------
 
 1. Create a ``homework10/`` directory in your homework repository 
-2. Include the script used to fit / validate the model / pipeline
-3. Include the script used to load the model / pipeline and make predictions on sample data
-4. Include the pickled model and pipeline files generated in Part 1 and named appropriately
+2. Include the script used to fit / validate the model / pipeline (e.g. ``training.py``)
+3. Include the script used to load the model / pipeline and make predictions on sample data (e.g. ``inference.py``)
+4. Include the pickled model and pipeline files generated in Part 1 and named appropriately 
 5. Include a small sample data file in csv format that can be used to test the inference script
 6. Include a ``requirements.txt`` file that lists the dependencies for your project
 7. Add a ``README.md`` in ``homework09/`` that:
@@ -85,10 +87,10 @@ What to Turn In
    └── homework10/
        ├── README.md
        ├── inference.py
-       ├── nonstandardized_data_classifier.pkl
+       ├── classifier.pkl
        ├── requirements.txt
        ├── sample_data.csv
-       ├── standrdized_data_classifier.pkl
+       ├── normalizer_and_data_classifier_pipeline.pkl
        └── training.py
 
 

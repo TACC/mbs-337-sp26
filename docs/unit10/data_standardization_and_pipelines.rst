@@ -74,7 +74,7 @@ and no significant outliers.
 *When to Use*: When the dataset is normally distributed (or close to it). 
 
 StandardScaler in SciKit-Learn 
-------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``StandardScaler`` class from the ``sklearn.preprocessing`` module provides a convenience class
 that implements data standardization. The classes in ``preprocessing`` module that perform 
@@ -141,11 +141,11 @@ deviation. Next, transform the data using the standard Scaler:
    from sklearn.preprocessing import StandardScaler
    
    # step 1 -- Instantiate the Scaler
-   iris_Scaler = StandardScaler()
+   iris_scaler = StandardScaler()
    # step 2 -- fit the Scaler to the training data 
-   iris_Scaler.fit(X_train)
+   iris_scaler.fit(X_train)
    # step 3 -- apply the transformation; in this case, we apply it to the training data. 
-   X_train_scaled = iris_Scaler.transform(X_train)
+   X_train_scaled = iris_scaler.transform(X_train)
    
    # print the column means and standard deviations after transformation
    print(f'scaled mean by column:   {np.mean(X_train_scaled, axis=0)}')
@@ -170,7 +170,7 @@ and the standard deviation is 1.
 
 
 Robust Scalers 
---------------
+~~~~~~~~~~~~~~
 
 When the dataset contains outliers that deviate significantly from the mean, using standardization
 could result in worse performance because the outliers could dominate the mean/variance and crush
@@ -183,7 +183,7 @@ percentage range.
 *When to Use*: When the dataset contains outliers that deviate significantly from the mean. 
 
 MaxAbs Scaler 
--------------
+~~~~~~~~~~~~~
 
 The last Scaler we will mention is the ``MaxAbsScaler``, short for "maximum absolute" scaler. 
 This scaler uses the maximum absolute value of each feature to scale the values of that 
@@ -198,6 +198,9 @@ Note also that this scaler does not reduce the effect of outliers.
 
 Pipelines 
 ---------
+
+Example 1: Data Standardization
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 We now have a dilemma - the training data was scaled using the ``StandardScaler`` but the test data
 was not. This will lead to poor performance when we attempt to predict on the test data. (But remember -
@@ -256,8 +259,6 @@ following code blocks:
         loaded_pipeline = pickle.load(f)
 
 
-
-
 EXERCISE
 ~~~~~~~~
 
@@ -271,6 +272,164 @@ Let's go through the process of putting the above Iris classifier into productio
 5. Write a production-ready script (following Python best practices) that takes command line 
    arguments for the input data (sepal length, sepal width, petal length, petal width) and outputs
    the predicted class
+
+
+Example 2: One-Hot-Encoding
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+We have one more dilemma to solve: How do you perform inference on previously-unseen sample
+data when the training data has been one-hot-encoded? As we saw in the Exercise from the previous 
+lesson, attempting to one-hot-encode a sample absent the training data will lead to too-few
+columns. And, we don't want to have to import all of the original training data every time we 
+need to encode sample data. 
+
+To solve this, we can create a pipeline that includes the one-hot-encoding step as well as the
+model fitting step. This way, when we call ``predict()`` on the pipeline, it will automatically
+apply the correct one-hot-encoding transformation to the sample data before making predictions. This ensures
+that the sample data is preprocessed in the same way as the training data, which will avoid the 
+errors we saw previously about the mismatch in number of columns
+
+Here is an example of how to create such a pipeline (this code has been adapted from the code
+in the previous lesson):
+
+.. code-block:: python
+    :linenos:
+    :emphasize-lines: 9-11,34-37,41,45
+
+    import random
+    import pandas as pd 
+    from ucimlrepo import fetch_ucirepo
+    from sklearn.model_selection import train_test_split
+    from sklearn.metrics import classification_report
+    import tensorflow as tf 
+    from tensorflow.keras import Sequential
+    from tensorflow.keras.layers import Input, Dense
+    from sklearn.preprocessing import OneHotEncoder
+    from sklearn.pipeline import Pipeline
+    from scikeras.wrappers import KerasClassifier
+    
+    tf.random.set_seed(123)
+    random.seed(123)
+    
+    # Fetch dataset
+    mushroom = fetch_ucirepo(id=73)
+    X = mushroom.data.features
+    y = mushroom.data.targets
+    X_clean = X.drop(columns=['stalk-root'])
+    y_encoded = y['poisonous'].map({'p': 1, 'e': 0})
+
+    # Create model with sequential API
+    model = Sequential([
+        Input(shape=(112,)),
+        Dense(10, activation='relu'),
+        Dense(1, activation='sigmoid')
+    ])
+    
+    # Compile the model with appropriate settings for binary classification
+    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+    
+    # Create a Pipeline
+    mushroom_pipeline = Pipeline([
+        ('encoder', OneHotEncoder(handle_unknown='ignore')),
+        ('classifier', KerasClassifier(model=model, validation_split=0.2, epochs=5, batch_size=32, verbose=2))
+    ])
+    
+    # Split the dataset into training and testing sets
+    X_train, X_test, y_train, y_test = train_test_split(
+        X_clean, y_encoded, test_size=0.3, stratify=y_encoded, random_state=123
+    )
+    
+    # Train the model with the specified parameters
+    mushroom_pipeline.fit(X_train, y_train)
+    
+    # Make predictions on the test data
+    y_pred = mushroom_pipeline.predict(X_test)
+    y_pred_final = (y_pred > 0.5).astype(int)
+    print(classification_report(y_test,y_pred_final, digits=4))
+
+
+Some important notes about this code: 
+
+1. Instead of using the pandas ``get_dummies()`` method to one-hot-encode the data, we use the
+   ``OneHotEncoder`` class from SciKit-Learn. This is because the ``Pipeline`` class expects all
+   transformations to be implemented as classes with ``fit()`` and ``transform()`` methods. The
+   ``OneHotEncoder`` class provides this functionality, while the ``get_dummies()`` method does not.
+2. We set the ``handle_unknown`` parameter of the ``OneHotEncoder`` to "ignore" to ensure that if
+   we encounter a category in the sample data that was not present in the training data, the encoder
+   will simply ignore it instead of throwing an error. This is important for ensuring that our
+   pipeline can handle previously-unseen sample data without crashing.
+3. We use the ``KerasClassifier`` wrapper from the ``scikeras.wrappers`` module to integrate our
+   Keras model into the SciKit-Learn pipeline. This allows us to treat the Keras model as a standard
+   estimator that can be used in the pipeline alongside other transformations.
+4. Notice when we do the ``train_test_split()`` we are splitting the original X data which has not
+   yet been one-hot-encoded. This is because the one-hot-encoding will be applied as part of the
+   pipeline, so we want to split the original data before applying any transformations. 
+5. Finally, call the ``.fit()`` and ``.predict()`` methods on the pipeline itself, rather than on
+   the individual components.
+
+Finally, we can save this pipeline to disk using ``pickle`` and load it later to make predictions 
+on new sample data, just like we did with the previous pipeline. This way, we can ensure that all 
+of the necessary transformations are applied consistently to any new data we want to classify.
+
+.. code-block:: python
+
+    import pickle
+    
+    # save the pipeline to disk
+    with open('mushroom_pipeline.pkl', 'wb') as f:
+       pickle.dump(mushroom_pipeline, f)
+    
+    # load the pipeline from disk
+    with open('mushroom_pipeline.pkl', 'rb') as f:
+       loaded_pipeline = pickle.load(f)
+
+
+.. note::
+
+    You may still need to handle some edge cases when taking sample data from the user. For example,
+    in our original code we drop the "stalk-root" column because it contains missing values. If a user 
+    tries to classify a sample that includes a value for "stalk-root", what will happen?
+
+
+EXERCISE
+~~~~~~~~
+
+Let's go through the process of putting the Mushroom classifier into production.
+
+
+1. Create a pipeline for the Mushroom dataset that one-hot-encodes the data and fits a Keras
+   Sequential model.
+2. Train the pipeline on the training data and evaluate it on the test data.
+3. Save the pipeline to disk using ``pickle``.
+4. Load the pipeline into a new script and use it to make predictions on the following sample
+   data, provided in JSON:
+
+.. code-block:: text
+
+    {
+      "cap-shape": "x",
+      "cap-surface": "s",
+      "cap-color": "n",
+      "bruises": "t",
+      "odor": "p",
+      "gill-attachment": "f",
+      "gill-spacing": "c",
+      "gill-size": "n",
+      "gill-color": "k",
+      "stalk-shape": "e",
+      "stalk-root": "e",
+      "stalk-surface-above-ring": "s",
+      "stalk-surface-below-ring": "s",
+      "stalk-color-above-ring": "w",
+      "stalk-color-below-ring": "w",
+      "veil-type": "p",
+      "veil-color": "w",
+      "ring-number": "o",
+      "ring-type": "p",
+      "spore-print-color": "k",
+      "population": "s",
+      "habitat": "u"
+    }
 
 
 Additional Resources

@@ -1,7 +1,7 @@
 Final
 =====
 
-**Due Date: Thursday, March 12 by 11:00am CDT**
+**Due Date: Saturday, May 2 by 8:00am CDT**
 
 Overall Objective
 -----------------
@@ -38,12 +38,26 @@ Bringing together all these concepts resulted in: a **useful tool**  that is
 generally fall under the description of **research computing in biology**.
 
 
-
 Final Requirements
 --------------------
 
 Part 1: Code Repository
 ~~~~~~~~~~~~~~~~~~~~~~~
+
+We are looking for a complete, stand-alone repository that has all of the code, models, scripts,
+and supporting files necessary to deploy and run your project. Each project is a little bit 
+different, but in general we would expect to find:
+
+* ``app.py``: Assuming your project is a dashboard, this is where the majority of the code and logic
+  will be
+* ``README.md``: Use the README to introduce users to your project. Provide a high level description 
+  of the purpose - images and figures will help. Provide instructions to deploy the project, and 
+  instructions on using the actual web app
+* ``requirements.txt``, ``Dockerfile``, ``docker-compose.yml``: We will be looking for files that
+  aid in the deployment of your project, in line with the description provided in the README
+* ``model/``: If your dashboard performs inference on user data, please provide the pickled model(s)
+  and any supporting scripts that were used to train or facilitate inference on the model in a
+  subdirectory
 
 
 Part 2: Write Up
@@ -73,11 +87,8 @@ scientific function it is meant to perform, (3) demonstrate the usage of your pr
 highlight anything you think is interesting or unique about your application.
 
 
-
-
 What to Turn In
 ---------------
-
 
 Please send the instructors an email with a link to the repository, and attach
 the write up as a pdf, and attach or provide a zoom or box download link to the 
@@ -85,7 +96,6 @@ video. If working in a group
 of two, only one person needs to send that email, but be sure to mention both
 group members names.
    
-
 
 Note on Using AI
 ----------------
@@ -104,5 +114,4 @@ Additional Resources
 --------------------
 
 * `Sequence Classifier <http://129.114.39.70:8050/>`_ (if link is not live, ask the instructors)
-* Having trouble thinking of an idea? Let the instructors know and we will work with you
 

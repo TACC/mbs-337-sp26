@@ -26,6 +26,7 @@ research problems.
    unit08/overview
    unit09/overview
    unit10/overview
+   unit11/overview
 
 
 .. toctree::

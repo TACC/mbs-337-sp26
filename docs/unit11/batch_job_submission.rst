@@ -13,7 +13,7 @@ containing a list of the resources we need, and containing the command(s) for ru
 application. Then, we submit that text file to a queue to run on compute nodes. This process is
 called **batch job submission**.
 
-After going through this module, you should be able to:
+After going through this module, students should be able to:
 
 * Find and assemble input data needed for a docking calculation
 * Load the appropriate docking software into your PATH
@@ -225,6 +225,11 @@ EXERCISE
    Refer to the `AutoDock Vina ReadTheDocs <https://autodock-vina.readthedocs.io/en/latest/>` for
    tips on using the command, or run ``vina --help``.
 
+
+.. tip::
+
+   Consider playing around with the parameters in the configuration file to see how you can speed
+   up the calculation. In particular the ``cpu``
 
 Additional Resources
 --------------------

@@ -18,6 +18,9 @@ navigating file systems, the module system, submitting batch jobs, and running j
    intro_to_hpc
    modules
    batch_job_submission
+   hands_on_lab
+   idev
+   tap
 
 
 

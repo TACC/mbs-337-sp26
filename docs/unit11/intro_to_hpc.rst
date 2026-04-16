@@ -4,7 +4,7 @@ Introduction to High Performance Computing
 
 To begin this unit, we will introduce the basis of high performance computing (HPC), and the 
 general architecture of HPC systems at TACC. We will cover how to log in to an HPC system, and
-navigate the different file systems available. After going through this module, you should be able
+navigate the different file systems available. After going through this module, students should be able
 to:
 
 * Describe the basic architecture of an HPC system

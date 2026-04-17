@@ -32,6 +32,10 @@ Second, find an appropriate ``samtools`` and ``bcftools`` packages in the module
 into your environment.
 Record the commands for this step for your ``job.slurm`` script. 
 
+.. tip::
+
+   This was tested with samtools v1.20 and bcftools v1.21
+
 Then, adapt the following steps be replacing the ``[ALL_CAPS_FILENAME_PLACEHOLDERS]`` with appropriate
 names for this exercise and put place them into your ``job.slurm`` script:
 

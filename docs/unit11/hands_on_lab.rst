@@ -28,7 +28,8 @@ exercise, and collect the following two inputs:
     [ls6]$ cp /work/03439/wallen/public/samtools_example/ecoli_NC_008253.fna ./
 
 
-Second, find an appropriate ``samtools`` package in the module system and load it into your environment.
+Second, find an appropriate ``samtools`` and ``bcftools`` packages in the module system and load them
+into your environment.
 Record the commands for this step for your ``job.slurm`` script. 
 
 Then, adapt the following steps be replacing the ``[ALL_CAPS_FILENAME_PLACEHOLDERS]`` with appropriate
@@ -56,13 +57,8 @@ names for this exercise and put place them into your ``job.slurm`` script:
 
 .. code-block:: console
 
-   samtools mpileup -g -f [REFERENCE_GENOME] [SORTED_BINARY_ALIGNMENT_MAP] > [BINARY_CALL_FILE]
+   bcftools mpileup -f [REFERENCE_GENOME] -o [VARIANT_CALL_FILE] [SORTED_BINARY_ALIGNMENT_MAP]
 
-**Step 4e: Use bcftools (packaged with samtools) to look for SNPs**
-
-.. code-block:: console
-
-   bcftools call -c -v [BINARY_CALL_FILE] > [VARIANT_CALL_FILE]
 
 
 .. note::
@@ -72,7 +68,6 @@ names for this exercise and put place them into your ``job.slurm`` script:
    * sequence alignment map = .sam
    * binary alignment map = .bam
    * variant call file = .vcf
-   * binary call file = .bcf
 
 
 The job should take less than 10 minutes on one node. Submit the job, monitor the job status in

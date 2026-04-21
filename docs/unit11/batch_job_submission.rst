@@ -119,7 +119,7 @@ Open ``job.slurm`` with your preferred text editor and fill out the following in
 
    #SBATCH -J vina_job      # Job name
    #SBATCH -o vina_job.o%j  # Name of stdout output file (%j expands to jobId)
-   #SBATCH -o vina_job.e%j  # Name of stderr error file (%j expands to jobId)
+   #SBATCH -e vina_job.e%j  # Name of stderr error file (%j expands to jobId)
    #SBATCH -p development   # Queue (partition) name
    #SBATCH -N 1             # Total # of nodes (must be 1 for serial)
    #SBATCH -n 1             # Total # of mpi tasks (should be 1 for serial)

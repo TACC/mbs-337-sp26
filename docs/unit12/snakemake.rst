@@ -9,6 +9,10 @@ After going through this module, students should be able to:
 
 * Describe the core concepts of Snakemake and how it differs from GNU Make
 * Install Snakemake in a Python virtual environment
+* Write and execute a simple Snakemake workflow with multiple rules and dependencies
+* Use wildcards to create flexible rules that can be applied to many files
+* Use Snakemake's command-line interface to run workflows with different options and flags
+* Implement a real-world workflow (docking) in Snakemake and execute it at scale
 
 
 
@@ -22,7 +26,7 @@ system.
 
 A simple overview of Snakemake rules includes:
 
-* Can contain 0 or more input files, and/or 0 or more output files
+* Can contain zero or more input files, and/or zero or more output files
 * Can contain a shell command that specifies how to create the output files from the input files
 * By default, the first rule is typically a special rule called "all" that specifies as input(s) the
   desired final output(s) of the workflow
@@ -262,21 +266,21 @@ copy over the materials again into this new directory:
 
 .. code-block:: console
 
-   (venv) [ls6]$ cp -r /work/03439/wallen/public/autodock_vina_example_2/* ./
+   (venv)[ls6]$ cp -r /work/03439/wallen/public/autodock_vina_example_2/* ./
 
 Recall we have an input configuration file, an input receptor file, and 944 ligand files. From
 Unit 11, we determined that the command to dock an individual ligand would resemble:
 
 .. code-block:: console
 
-    [ls6]$ vina --config config.in --receptor 2FOM.pdbqt --ligand ligands/ligand.pdbqt --out output/ligand_out.pdbqt
+    (venv)[ls6]$ vina --config config.in --receptor 2FOM.pdbqt --ligand ligands/ligand.pdbqt --out output/ligand_out.pdbqt
 
 
 And a command to dock a batch of ligands would resemble:
 
 .. code-block:: console
 
-    [ls6]$ vina --config config.in --receptor 2FOM.pdbqt --batch ligands/*pdbqt --dir output/
+    (venv)[ls6]$ vina --config config.in --receptor 2FOM.pdbqt --batch ligands/*pdbqt --dir output/
 
 
 .. warning::
@@ -300,7 +304,7 @@ vina line as a shell command. For example:
         shell: "vina <VINA OPTIONS HERE>"
 
 
-Once that is written for a single ligand case, test it by running Snakemake. I recommend using
+Once that is written for a single ligand case, test it by running Snakemake. Use
 the ``--dry-run`` and ``--printshellcmds`` flags to help debug in the beginning.
 
 .. code-block:: console

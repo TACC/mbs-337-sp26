@@ -111,8 +111,8 @@ increases in complexity. The best tool for you will depend on your specific need
 GNU Make
 ~~~~~~~~
 
-`GNU <https://www.gnu.org/software/make/manual/make.html>`_ 
-make is a classic automation tool, typically used for building software. It has been used to 
+`GNU Make <https://www.gnu.org/software/make/manual/make.html>`_ 
+is a classic automation tool, typically used for building software. It has been used to 
 manage simple workflows for decades. It is installed by default on most Unix-like systems. 
 
 Pros:
@@ -200,7 +200,7 @@ Cons:
 Additional Considerations
 -------------------------
 
-It is safe to sy that workflow managers will take a lot of time and energy up front to learn the
+It is safe to say that workflow managers will take a lot of time and energy up front to learn the
 syntax and translate your analyses into formal workflows. However, the benefits of using a workflow
 manager far outweight the initial investment. In the long run, workflow managers will always save 
 you time, provide protection against human error, ensure reproducibility, and track provenance.

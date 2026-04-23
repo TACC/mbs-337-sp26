@@ -507,7 +507,8 @@ using four processes, one for each step. Publish the final output only, the vari
 .. hint::
 
     To specify which containers you need for each step, refer to the Nextflow documentation on
-    `containers <https://docs.seqera.io/nextflow/container>`_. You will use a config file similar to:
+    `containers <https://docs.seqera.io/nextflow/container>`_. You will use a *Profile* (config
+    file called ``nextflow.config``) similar to:
 
     .. code-block:: text
 
@@ -564,7 +565,6 @@ Other Considerations and Next Steps
 Nextflow has many other features not mentioned here. A few of the most important features to be 
 aware of include:
 
-* **Config File** Nextflow supports a powerful configuration system that allows you to specify parameters, resource requirements, and other settings in a separate config file. This can help keep your workflow code clean and organized, and makes it easier to manage different configurations for different runs.
 * **Profiles:** Profiles are a powerful way to manage different configurations for running the same workflow in different environments. For example, you could have one profile for running on your local machine, and another profile for running on an HPC cluster. Profiles can specify different executors, different resource requirements, and different parameters.
 * **Executors:** Nextflow supports a wide range of executors, including local execution, SLURM, SGE, LSF, Kubernetes, and more. This allows you to run the same workflow on different computing environments without changing the workflow code.
 * **Error Handling:** Nextflow has built-in error handling and retry mechanisms. If a process fails, Nextflow can automatically retry it a specified number of times. You can also specify custom error handling logic in your workflow.

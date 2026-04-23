@@ -234,8 +234,8 @@ again. What happens? How long does it take to run? What happens if you change th
 with the ``-c`` flag?
 
 
-Summary of Important Snakemake Commands
----------------------------------------
+Summary of Important Snakemake Flags
+------------------------------------
 
 Some of the most commonly used Snakemake flags we will see include:
 

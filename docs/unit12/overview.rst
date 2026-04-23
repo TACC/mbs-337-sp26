@@ -16,6 +16,7 @@ bioinformatics: Snakemake and Nextflow.
 
    intro_to_workflow_managers
    snakemake
+   nextflow
 
 
 

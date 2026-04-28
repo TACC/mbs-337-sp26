@@ -393,6 +393,8 @@ to source your virtual environment so ``snakemake`` is in your PATH when the job
     #SBATCH -A OTH24028
 
     # assuming you are in working directory with your Snakefile and virtual environment
+    module use /work/03439/wallen/public/modulefiles
+    module load autodock_vina/1.2.3
     source .venv/bin/activate
     snakemake -c4
 
